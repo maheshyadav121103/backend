@@ -421,7 +421,8 @@ app.get('/api/unread-counts/:userEmail', async (req, res) => {
 // Mark messages as read
 app.post('/api/mark-read', async (req, res) => {
     try {
-        const { receiver, sender } = req.body;
+        const receiver = req.body.receiver || req.body.receiverEmail;
+        const sender = req.body.sender || req.body.senderEmail;
         
         await Message.updateMany(
             {
@@ -679,3 +680,4 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
